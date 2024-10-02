@@ -39,11 +39,13 @@ jobs:
       run: sudo apt-get install -y dpkg-dev debhelper
     - name: Build Debian package
       run: dpkg-buildpackage -us -uc -b
+    - name: Move Debian package
+      run: mv ../connectivity-test_*.deb .
     - name: Upload artifact
       uses: actions/upload-artifact@v3
       with:
         name: debian-package
-        path: ../connectivity-test_*.deb
+        path: ./connectivity-test_*.deb
 
   release:
     if: github.event_name == 'release'

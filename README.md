@@ -56,7 +56,7 @@ bats tests/connectivity_test.bats
 To run linting locally:
 
 ```
-shellcheck usr/local/bin/connectivity_test.sh
+shellcheck usr/bin/connectivity_test.sh
 ```
 
 ### Contributing
