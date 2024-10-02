@@ -65,3 +65,4 @@ jobs:
           --title "Release ${{ github.run_number }}" \
           --notes "Automated release for build ${{ github.run_number }}" \
           ./connectivity-test_*.deb
+          
