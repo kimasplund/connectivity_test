@@ -1,0 +1,13 @@
+# Ignore Debian build artifacts
+*.deb
+*.changes
+*.buildinfo
+*.dsc
+*.tar.xz
+
+# Ignore logs
+*.log
+
+# Ignore temporary files
+*~
+.*.swp

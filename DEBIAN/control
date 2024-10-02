@@ -1,0 +1,11 @@
+Package: connectivity-test
+Version: 1.0
+Section: utils
+Priority: optional
+Architecture: all
+Depends: bash (>= 4.0), curl, iproute2, systemd
+Maintainer: Kim Asplund <kim.asplund@gmail.com>
+Description: Network Connectivity Test and Service Monitor
+ This package installs a service that monitors network connectivity
+ and local services, with the ability to restart services and
+ initiate system reboots if necessary.

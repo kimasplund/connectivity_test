@@ -1,0 +1,66 @@
+name: CI/CD
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  release:
+    types: [created]
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: Lint with shellcheck
+      uses: ludeeus/action-shellcheck@master
+      with:
+        scandir: './usr/local/bin'
+
+  test:
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up test environment
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y bats
+    - name: Run tests
+      run: bats tests/
+
+  build:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install build dependencies
+      run: sudo apt-get install -y dpkg-dev debhelper
+    - name: Build Debian package
+      run: dpkg-buildpackage -us -uc -b
+    - name: Upload artifact
+      uses: actions/upload-artifact@v3
+      with:
+        name: debian-package
+        path: ../connectivity-test_*.deb
+
+  release:
+    if: github.event_name == 'release'
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - uses: actions/checkout@v3
+    - name: Download artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: debian-package
+    - name: Upload Release Asset
+      uses: actions/upload-release-asset@v1
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        upload_url: ${{ github.event.release.upload_url }}
+        asset_path: ./connectivity-test_*.deb
+        asset_name: connectivity-test.deb
+        asset_content_type: application/vnd.debian.binary-package

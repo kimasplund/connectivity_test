@@ -1,0 +1,24 @@
+#!/bin/bash
+set -e
+
+# Create connectivity_test user
+if ! id "connectivity_test" &>/dev/null; then
+    useradd -r -s /usr/sbin/nologin connectivity_test
+fi
+
+# Set permissions
+chown root:connectivity_test /usr/local/bin/connectivity_test.sh
+chmod 750 /usr/local/bin/connectivity_test.sh
+chown connectivity_test:connectivity_test /var/log/connectivity_test.log
+chown connectivity_test:connectivity_test /var/log/connectivity_test_debug.log
+chmod 640 /var/log/connectivity_test.log /var/log/connectivity_test_debug.log
+
+# Set up sudoers
+echo "connectivity_test ALL=(ALL) NOPASSWD: /bin/systemctl restart *, /sbin/reboot" > /etc/sudoers.d/connectivity_test
+chmod 440 /etc/sudoers.d/connectivity_test
+
+# Enable and start the service
+systemctl enable connectivity_test.service
+systemctl start connectivity_test.service
+
+exit 0

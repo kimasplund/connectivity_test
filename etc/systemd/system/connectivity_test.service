@@ -1,0 +1,29 @@
+[Unit]
+Description=Connectivity Test and Reboot Service
+After=network-online.target
+
+[Service]
+Type=simple
+User=connectivity_test
+Group=connectivity_test
+ExecStart=/etc/connectivity_test/connectivity_test.sh
+ExecReload=/bin/kill -HUP $MAINPID
+Restart=always
+RestartSec=10
+CapabilityBoundingSet=CAP_NET_RAW CAP_NET_ADMIN CAP_SYS_BOOT
+AmbientCapabilities=CAP_NET_RAW CAP_NET_ADMIN CAP_SYS_BOOT
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+NoNewPrivileges=true
+ReadOnlyDirectories=/
+ReadWriteDirectories=/var/log /tmp /etc/connectivity_test
+PrivateDevices=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+
+[Install]
+WantedBy=multi-user.target
