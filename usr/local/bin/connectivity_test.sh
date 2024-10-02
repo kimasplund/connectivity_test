@@ -262,13 +262,15 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
         done
 
         # Check local services
-        for service in "${local_services[@]}"; do
-            IFS=':' read -r service_name check_type port <<< "$service"
-            if ! check_local_service "$service_name" "$check_type" "$port"; then
-                log_message "WARNING" "Service $service_name is not responding"
-                restart_service "$service_name"
-            fi
-        done
+        if [ ${#local_services[@]} -gt 0 ]; then
+            for service in "${local_services[@]}"; do
+                IFS=':' read -r service_name check_type port <<< "$service"
+                if ! check_local_service "$service_name" "$check_type" "$port"; then
+                    log_message "WARNING" "Service $service_name is not responding"
+                    restart_service "$service_name"
+                fi
+            done
+        fi
 
         total_reachable_count=$((total_reachable_count + reachable_count))
         average_reachable=$(bc <<< "scale=2; $total_reachable_count / $iteration_count")
