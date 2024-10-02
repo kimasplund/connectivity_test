@@ -28,6 +28,9 @@ set -euo pipefail
 log_file="${TEST_LOG_FILE:-/var/log/connectivity_test.log}"
 debug_log_file="${TEST_DEBUG_LOG_FILE:-/var/log/connectivity_test_debug.log}"
 
+# Initialize local_services as an empty array
+local_services=()
+
 # Function to display usage information
 usage() {
     cat << EOF
