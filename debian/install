@@ -1,0 +1,3 @@
+usr/local/bin/connectivity_test.sh usr/local/bin
+etc/connectivity_test/connectivity_test.conf etc/connectivity_test
+etc/systemd/system/connectivity_test.service lib/systemd/system

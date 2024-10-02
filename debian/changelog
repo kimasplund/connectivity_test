@@ -1,0 +1,5 @@
+connectivity-test (1.0-1) unstable; urgency=medium
+
+  * Initial release.
+
+ -- Kim Asplund <kim.asplund@gmail.com>  $(date -R)

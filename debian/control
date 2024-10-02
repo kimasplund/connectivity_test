@@ -1,10 +1,13 @@
-Package: connectivity-test
-Version: 1.0
+Source: connectivity-test
 Section: utils
 Priority: optional
-Architecture: all
-Depends: bash (>= 4.0), curl, iproute2, systemd
 Maintainer: Kim Asplund <kim.asplund@gmail.com>
+Build-Depends: debhelper (>= 10)
+Standards-Version: 4.5.0
+
+Package: connectivity-test
+Architecture: all
+Depends: ${misc:Depends}, bash (>= 4.0), curl, iproute2, systemd
 Description: Network Connectivity Test and Service Monitor
  This package installs a service that monitors network connectivity
  and local services, with the ability to restart services and
