@@ -7,7 +7,7 @@ if ! id "connectivity_test" &>/dev/null; then
 fi
 
 # Set permissions
-chown root:connectivity_test /usr/local/bin/connectivity_test.sh
+chown root:connectivity_test /usr/bin/connectivity_test.sh
 chmod 750 /usr/local/bin/connectivity_test.sh
 chown connectivity_test:connectivity_test /var/log/connectivity_test.log
 chown connectivity_test:connectivity_test /var/log/connectivity_test_debug.log
