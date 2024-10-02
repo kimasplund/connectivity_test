@@ -46,7 +46,7 @@ jobs:
       with:
         name: debian-package
         path: ./connectivity-test_*.deb
-
+    if: github.event_name == 'release'
   release:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
